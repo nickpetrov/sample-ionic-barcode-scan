@@ -45,6 +45,14 @@
       <div ng-if="result.err" style="color: red;">
         Error: <b>{{result.err}}</b>
       </div>
+      <div ng-if="result.log.length">
+        Count: <b>{{result.log.length}}</b>
+        <ul class="list">
+          <li class="item" ng-repeat="log in result.log track by $index">
+            {{log}}
+          </li>
+        </ul>
+      </div>
     </ion-content>
   </ion-pane>
 </body>

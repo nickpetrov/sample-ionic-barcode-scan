@@ -25,24 +25,30 @@ angular.module('starter', ['ionic', 'ngCordova'])
   .controller('IndexCtrl', function($scope, $cordovaBarcodeScanner) {
     $scope.result = {
       res: null,
-      err: null
+      err: null,
+      log: []
     };
+
+    function resetResult() {
+      $scope.result.res = null;
+      $scope.result.err = null;
+    }
+
     $scope.scan = function() {
       console.debug('scan');
       if (!window.cordova) return;
-      $scope.result = {
-        res: null,
-        err: null
-      };
+      resetResult();
       $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
           console.debug('barcodeData', barcodeData);
           $scope.result.res = JSON.stringify(barcodeData);
+          $scope.result.log.push($scope.result.res);
         })
         .catch(function(error) {
           console.error('error', error);
           $scope.result.err = error;
+          $scope.result.log.push($scope.result.err);
         });
     };
   });
